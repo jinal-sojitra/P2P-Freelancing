@@ -122,8 +122,24 @@ module.exports = {
         const tx = await contract.deleteEmployer(employerAddress);
         await tx.wait();
         
-        res.send('This freelancer has been deleted!');
+        res.send('This Employer has been deleted!');
     },
+
+    updateFreelancer: async (req, res) => {
+      const {freelancerAddress, name, skills} = req.body;
+      const tx = await contract.updateFreelancer(freelancerAddress, name, skills);
+      await tx.wait();
+      
+      res.send('Freelancer details has been updated!');
+  },
+
+    updateEmployer: async (req, res) => {
+      const {employerAddress, name} = req.body;
+      const tx = await contract.updateEmployer(employerAddress, name);
+      await tx.wait();
+      
+      res.send('Employer details has been updated!');
+  },
 
     getFreelancer: async (req, res) => {
         const {freelancerAddress} = req.body;

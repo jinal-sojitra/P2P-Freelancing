@@ -239,6 +239,47 @@ const abi=[
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_employerAdd",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "updateEmployer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_freelancerAdd",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_skills",
+				"type": "string[]"
+			}
+		],
+		"name": "updateFreelancer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "_projectId",
 				"type": "uint256"
@@ -296,94 +337,6 @@ const abi=[
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_freelancerAdd",
-				"type": "address"
-			}
-		],
-		"name": "getFreelancer",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string[]",
-						"name": "skills",
-						"type": "string[]"
-					},
-					{
-						"components": [
-							{
-								"internalType": "string",
-								"name": "title",
-								"type": "string"
-							},
-							{
-								"internalType": "string",
-								"name": "description",
-								"type": "string"
-							},
-							{
-								"internalType": "string[]",
-								"name": "technologies",
-								"type": "string[]"
-							},
-							{
-								"internalType": "uint256",
-								"name": "budget",
-								"type": "uint256"
-							},
-							{
-								"internalType": "address",
-								"name": "employer",
-								"type": "address"
-							},
-							{
-								"internalType": "address[]",
-								"name": "freelancerRequests",
-								"type": "address[]"
-							},
-							{
-								"internalType": "bool",
-								"name": "isCancelled",
-								"type": "bool"
-							},
-							{
-								"internalType": "bool",
-								"name": "isComplete",
-								"type": "bool"
-							},
-							{
-								"internalType": "address",
-								"name": "freelancer",
-								"type": "address"
-							},
-							{
-								"internalType": "bool",
-								"name": "isFinalized",
-								"type": "bool"
-							}
-						],
-						"internalType": "struct FreelancePlatform.Project[]",
-						"name": "completedProjects",
-						"type": "tuple[]"
-					}
-				],
-				"internalType": "struct FreelancePlatform.Freelancer",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "_projectId",
 				"type": "uint256"
@@ -400,6 +353,71 @@ const abi=[
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getProjects",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "string[]",
+						"name": "technologies",
+						"type": "string[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "budget",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "employer",
+						"type": "address"
+					},
+					{
+						"internalType": "address[]",
+						"name": "freelancerRequests",
+						"type": "address[]"
+					},
+					{
+						"internalType": "bool",
+						"name": "isCancelled",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isComplete",
+						"type": "bool"
+					},
+					{
+						"internalType": "address",
+						"name": "freelancer",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "isFinalized",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct FreelancePlatform.Project[]",
+				"name": "",
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -460,4 +478,5 @@ const abi=[
 		"type": "function"
 	}
 ]
+
 module.exports=abi;

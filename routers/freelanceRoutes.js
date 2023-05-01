@@ -25,6 +25,10 @@ router.delete('/deleteFreelancer', controller.deleteFreelancer);
 
 router.delete('/deleteEmployer', controller.deleteEmployer);
 
+router.put('/updateFreelancer', controller.updateFreelancer);
+
+router.put('/updateEmployer', controller.updateEmployer);  
+
 router.get('/getFreelancer', controller.getFreelancer);
 
 
