@@ -44,14 +44,29 @@ contract FreelancePlatform {
     event ProjectCancelled(uint256 indexed projectId, address indexed freelancer);
 
     function registerEmployer(string memory _name) public {
-         
         employers[msg.sender].name=_name; 
     }
 
     function registerFreelancer(string memory _name, string[] memory _skills) public {
         freelancers[msg.sender].name=_name;
         freelancers[msg.sender].skills=_skills;
-        
+    }
+
+    function updateEmployer(address _employerAdd, string memory _name ) public {
+       employers[_employerAdd].name=_name; 
+    }
+
+    function updateFreelancer(address _freelancerAdd, string memory _name, string[] memory _skills ) public {
+        freelancers[_freelancerAdd].name=_name;
+        freelancers[_freelancerAdd].skills=_skills;
+    }
+
+    function deleteEmployer(address _employerAdd) public {
+        delete employers[_employerAdd];
+    }
+
+    function deleteFreelancer(address _freelancerAdd) public {
+        delete freelancers[_freelancerAdd];
     }
 
     function postProject(string memory _title, string memory _description, string[] memory _technologies , uint256 _budget) public {
@@ -74,19 +89,23 @@ contract FreelancePlatform {
         employers[msg.sender].postedProjects.push(newProject);
         emit ProjectPosted(msg.sender, projects.length - 1);
     }
+
+    function getProjects() public view returns (Project[] memory) {
+        return projects;
+    }
     
     function sendRequest(uint256 _projectId) public {
         require(_projectId < projects.length, "Invalid project ID.");
         require(msg.sender != projects[_projectId].employer, "Employer cannot send request.");
         projects[_projectId].freelancerRequests.push(msg.sender);
         //freelancers[msg.sender].requestedProjects.push(projects[_projectId]);
-        emit RequestSent(msg.sender, _projectId);
+        emit RequestSent(msg.sender, _projectId);  
     }
     //
     function finalizeFreelancer(uint _projectId, uint _freelancerId) public onlyEmployer(_projectId){
         Project storage project = projects[_projectId];
         require(msg.sender == project.employer, "Only the employer can finalize a freelancer for this project");
-        
+    
         require(!project.isFinalized, "This project has already been finalized");
         
         // Set the freelancer for the project and mark the project as finalized
