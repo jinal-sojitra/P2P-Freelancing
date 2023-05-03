@@ -31,5 +31,8 @@ router.put('/updateEmployer', controller.updateEmployer);
 
 router.get('/getFreelancer', controller.getFreelancer);
 
+router.post('/withdrawBid', controller.withdrawBid);
+
+
 
 module.exports = router;

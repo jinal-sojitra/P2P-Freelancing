@@ -46,7 +46,7 @@ module.exports = {
 
     sendRequest: async (req, res) => {
         const { projectId } = req.body;
-             const tx = await freelancer_contract.sendRequest(projectId);
+             const tx = await freelancer_contract.sendRequest(projectId, { value: req.body.bid });
              await tx.wait();
              console.log("Request sent successfully!");
              res.send('Request sent successfully!');
@@ -54,8 +54,8 @@ module.exports = {
 
     finalizeFreelancer: async (req, res) => {
         try {
-            const {projectId,freelancerId} = req.body;
-            const tx = await contract.finalizeFreelancer(projectId, freelancerId);
+            const {projectId,freelancerAdd} = req.body;
+            const tx = await contract.finalizeFreelancer(projectId, freelancerAdd);
             await tx.wait();
             console.log("Freelancer has been finalized");
             res.send('Freelancer has been finalized');
@@ -89,7 +89,7 @@ module.exports = {
 
     completeProject: async (req, res) => {
         const {projectId} = req.body;
-        const tx = await contract.completeProject(projectId, { value: req.body.budget });
+        const tx = await contract.completeProject(projectId);
         await tx.wait();
         
         res.send('Project has been completed');
@@ -145,5 +145,13 @@ module.exports = {
         const {freelancerAddress} = req.body;
         const freelancerDetails = await contract.getFreelancer(freelancerAddress);
         res.json({ freelancerDetails });
-    },   
+    },  
+
+    withdrawBid: async(req,res) =>{
+        const {projectId} = req.body;
+        const gasLimit = await freelancer_contract.estimateGas.withdrawBid(projectId);
+        const tx = await freelancer_contract.withdrawBid(projectId, {gasLimit: gasLimit});
+        await tx.wait();
+        res.send('Bid has been withdrawn!'); 
+    }
 }
